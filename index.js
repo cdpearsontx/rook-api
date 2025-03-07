@@ -1,3 +1,5 @@
+app.use(express.json()); // Allows API to read JSON data
+
 const express = require('express'); // <-- This line is missing!
 
 const fs = require('fs');
