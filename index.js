@@ -37,6 +37,15 @@ app.post('/store', (req, res) => {
     res.json({ message: "Memory stored!", data: newMemory });
 });
 
+// GET: Retrieve the latest stored message
+app.get('/latest', (req, res) => {
+    const messages = loadData();
+    if (messages.length === 0) {
+        return res.json({ message: "No memory yet." });
+    }
+    res.json(messages[messages.length - 1]); // Returns the last stored message
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
