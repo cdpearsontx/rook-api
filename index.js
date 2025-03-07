@@ -1,3 +1,5 @@
+const express = require('express'); // <-- This line is missing!
+
 const fs = require('fs');
 
 const DATA_FILE = 'data.json';
