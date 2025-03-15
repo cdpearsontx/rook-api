@@ -1,6 +1,12 @@
 {
+  "name": "rook-api",
+  "version": "1.0.0",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
   "dependencies": {
-    "express": "^4.21.2",
-    "fs": "^0.0.1-security"
+    "express": "^4.17.1",
+    "mongodb": "^4.1.0"
   }
 }
