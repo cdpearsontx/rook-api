@@ -17,7 +17,7 @@ async function connectToDatabase() {
     return client;
 }
 
-// ✅ GET route for retrieving the latest message
+//  GET route for retrieving the latest message
 app.get('/latest', async (req, res) => {
     try {
         const client = await connectToDatabase();
@@ -25,7 +25,7 @@ app.get('/latest', async (req, res) => {
         const collection = db.collection('messages');
 
         const latestMessage = await collection.find().sort({ timestamp: -1 }).limit(1).toArray();
-        client.close(); // ✅ Close the connection after the request
+        client.close(); //  Close the connection after the request
 
         if (latestMessage.length === 0) {
             return res.json({ message: "No memory yet." });
@@ -38,7 +38,7 @@ app.get('/latest', async (req, res) => {
     }
 });
 
-// ✅ POST route for storing a message
+// POST route for storing a message
 app.post('/messages', async (req, res) => {
     try {
         const client = await connectToDatabase();
@@ -51,7 +51,7 @@ app.post('/messages', async (req, res) => {
         };
 
         await collection.insertOne(newMessage);
-        client.close(); // ✅ Close the connection after the request
+        client.close(); //  Close the connection after the request
 
         res.json({ message: "Message saved successfully!", data: newMessage });
     } catch (err) {
@@ -60,7 +60,7 @@ app.post('/messages', async (req, res) => {
     }
 });
 
-// ✅ Start the server (only in local development)
+// Start the server (only in local development)
 if (process.env.NODE_ENV !== 'production') {
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
