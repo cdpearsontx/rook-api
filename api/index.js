@@ -1,31 +1,25 @@
 const express = require('express');
-const fs = require('fs');
 const { MongoClient } = require('mongodb');
 
-// Pull from Environment Variables
 const uri = process.env.MONGODB_URI;
 
 // MongoDB Client
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
-const port = process.env.PORT || 3000;  // Default to 3000
-
 app.use(express.json());
 
-// Connect to MongoDB and then start server
+// Connect to MongoDB once at startup
 client.connect()
     .then(() => {
         console.log("MongoDB connected!");
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
-        });
     })
     .catch((err) => {
         console.error("Failed to connect to MongoDB", err);
     });
 
-app.get('/latest', async (req, res) => {
+// GET route for retrieving the latest message
+app.get('/api/latest', async (req, res) => {
     try {
         const db = client.db('ai_memory');
         const collection = db.collection('messages');
@@ -41,7 +35,8 @@ app.get('/latest', async (req, res) => {
     }
 });
 
-app.post('/messages', async (req, res) => {
+// POST route for storing a message
+app.post('/api/messages', async (req, res) => {
     try {
         const db = client.db('ai_memory');
         const collection = db.collection('messages');
@@ -59,3 +54,6 @@ app.post('/messages', async (req, res) => {
         res.status(500).json({ message: "Error saving message." });
     }
 });
+
+// Export the app for Vercel
+module.exports = app;
