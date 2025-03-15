@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://pearsoncd:VoOdhfvlGRVd3JzV@cluster0.mongodb.net/ai_memory?retryWrites=true&w=majority";
 
 const app = express();
-const port = process.env.PORT || 7676;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
